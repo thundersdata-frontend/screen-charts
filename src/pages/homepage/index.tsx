@@ -1,133 +1,308 @@
-import React, { useCallback } from 'react';
-import { Link, Access, useAccess, useRequest, useModel } from 'umi';
+import React from 'react';
+import ChartDom from './components/ChartDom';
 import {
-  Button,
-  DatePicker,
-  Pagination,
-  TimePicker,
-  Transfer,
-  Calendar,
-  Table,
-} from 'antd';
-import moment from 'moment';
+  createLinePlot,
+  createColumnPlot,
+  createGroupColumnPlot,
+  createDonutPlot,
+  createStackColumnPlot,
+  createRangeColumnPlot,
+  createWaterfallPlot,
+  createLiquidPlot,
+  createDonutRosePlot,
+  createCustomBarPlot,
+  createStackRosePlot,
+  createRadarPlot,
+  createStackAreaPlot,
+  createScatterPlot,
+  createCustomRangeBarPlot,
+  createCustomGroupedBarPlot,
+  createRadialStackPlot,
+} from './generate';
+import styles from './index.module.less';
+import {
+  data1,
+  data2,
+  pieData,
+  roseData,
+  radarData,
+  groupedBarData,
+  radialStackData,
+  scatterData,
+} from './data';
 
-const { RangePicker } = DatePicker;
-
-export default function Homepage() {
-  const access = useAccess();
-
-  const { value, setValue, setEnums } = useModel('home');
-
-  /** 获取所有字典 */
-  useRequest(() => API.recruitment.dict.getAllDict.fetch(), {
-    onSuccess: (data) => {
-      setEnums(data);
-    },
-    onError: (error) => {
-      console.log(error.message);
-    },
-  });
-
-  const { run: run1 } = useRequest(
-    () =>
-      API.recruitment.interview.queryApplyingInterviewList.fetch({
-        page: 1,
-      }),
-    {
-      manual: true,
-      onError: (error) => {
-        console.log(error.message);
-      },
-    },
-  );
-
-  const fetchValue = useCallback(async () => {
-    if (value) {
-      const result = await API.recruitment.jobCategory.addJobCategory.fetch({
-        dictValue: value,
-      });
-      return result;
-    }
-    return API.recruitment.jobCategory.addJobCategory.init;
-  }, [value]);
-
-  useRequest(fetchValue, {
-    refreshDeps: [fetchValue],
-  });
-
+const Homepage = () => {
   return (
-    <div>
-      <div>
-        <Link to="/contacts">contacts</Link>
-      </div>
-      <div>
-        <Button type="primary">hello, antd</Button>
-      </div>
-      <div>
-        <Access
-          accessible={access.canRead}
-          fallback={<div>对不起，您没有权限查看此内容</div>}
-        >
-          你能看到我，说明你具有test权限
-        </Access>
-      </div>
-      <div>
-        <Access
-          accessible={access.canUpdate}
-          fallback={<div>对不起，您没有权限查看此内容</div>}
-        >
-          你能看到我，说明你具有hahaha权限
-        </Access>
-      </div>
-      <div>你能看到我，因为我对权限没有要求</div>
-      <div>
-        <DatePicker value={moment()} />
-        <TimePicker />
-        <RangePicker style={{ width: 200 }} />
-      </div>
-      <Pagination defaultCurrent={1} total={50} showSizeChanger />
-      <Transfer
-        dataSource={[]}
-        showSearch
-        targetKeys={[]}
-        render={(item) => item.title!}
-        listStyle={{ height: 250 }}
+    <div className={styles.homepage}>
+      <ChartDom
+        title="普通折线图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createLinePlot({
+            dom,
+            data: data1,
+            config: { xField: 'date', yField: 'value', seriesField: 'type' },
+          })
+        }
       />
-      <Calendar fullscreen={false} />
-      <Table
-        dataSource={[]}
-        columns={[
-          {
-            title: 'Name',
-            dataIndex: 'name',
-            filters: [
-              {
-                text: 'filter1',
-                value: 'filter1',
-              },
-            ],
-          },
-          {
-            title: 'Age',
-            dataIndex: 'age',
-          },
-        ]}
+      <ChartDom
+        title="普通柱状图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createColumnPlot({
+            dom,
+            data: data1,
+            config: {
+              xField: 'date',
+              yField: 'value',
+            },
+          })
+        }
       />
-      <div style={{ fontSize: '20px', fontWeight: 600, marginTop: '100px' }}>
-        以下为pont+useRequest使用示例
-      </div>
-      <div style={{ color: 'red' }}>
-        如果要测试接口请求，请在global.ts中将services引入进来，并在pont-config.json中配置originUrl
-      </div>
-      <div>
-        originUrl地址为http://recruitment.test.thundersdata.com/v2/api-docs
-      </div>
-      <Button onClick={() => run1()}>手动执行get请求</Button>
-      <Button onClick={() => setValue('aaaa')}>
-        把value由undefined设置为a
-      </Button>
-      <Button onClick={() => setValue('bbbbb')}>value由aaa变成bbb</Button>
-      <div>value值：{value}</div>
+      <ChartDom
+        title="分组柱状图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createGroupColumnPlot({
+            dom,
+            data: data1,
+            config: {
+              xField: 'date',
+              yField: 'value',
+              groupField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="堆叠柱状图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createStackColumnPlot({
+            dom,
+            data: data1,
+            config: {
+              xField: 'date',
+              yField: 'value',
+              stackField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="环形图示例"
+        className={styles.pieBlock}
+        getDom={(dom) =>
+          createDonutPlot({
+            dom,
+            data: pieData,
+            config: {
+              angleField: 'value',
+              colorField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="单例环形图示例"
+        className={styles.pieBlock}
+        getDom={(dom) =>
+          createDonutPlot({
+            dom,
+            data: 26,
+            config: {
+              isSingle: true,
+              titleName: '图例1',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="区间柱状图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createRangeColumnPlot({
+            dom,
+            data: data2,
+            config: {
+              xField: 'type',
+              yField: 'values',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="瀑布图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createWaterfallPlot({
+            dom,
+            data: data1,
+            config: {
+              xField: 'date',
+              yField: 'value',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="注水图示例"
+        className={styles.pieBlock}
+        getDom={(dom) =>
+          createLiquidPlot({
+            dom,
+            data: 50,
+          })
+        }
+      />
+      <ChartDom
+        title="玫瑰图示例"
+        className={styles.roseBlock}
+        getDom={(dom) =>
+          createDonutRosePlot({
+            dom,
+            data: pieData,
+            config: {
+              layout: 'half',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="玫瑰图-螺旋堆叠"
+        className={styles.roseBlock}
+        getDom={(dom) =>
+          createStackRosePlot({
+            dom,
+            data: roseData,
+            config: {
+              radiusField: 'value',
+              categoryField: 'category',
+              stackField: 'type',
+              isSpiral: true,
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="南丁格尔玫瑰图-堆叠"
+        className={styles.roseBlock}
+        getDom={(dom) =>
+          createStackRosePlot({
+            dom,
+            data: roseData,
+            config: {
+              radiusField: 'value',
+              categoryField: 'category',
+              stackField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="基础条形图示例"
+        className={styles.roseBlock}
+        getDom={(dom) =>
+          createCustomBarPlot({
+            dom,
+            data: pieData,
+            config: {
+              xField: 'type',
+              yField: 'value',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="雷达图"
+        className={styles.roseBlock}
+        getDom={(dom) =>
+          createRadarPlot({
+            dom,
+            data: radarData,
+            config: {
+              angleField: 'item',
+              radiusField: 'score',
+              seriesField: 'user',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="面积图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createStackAreaPlot({
+            dom,
+            data: data1,
+            config: {
+              xField: 'date',
+              yField: 'value',
+              stackField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="区间条形图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createCustomRangeBarPlot({
+            dom,
+            data: data2,
+            config: {
+              xField: 'type',
+              yField: 'values',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="单象限散点图示例"
+        className={styles.scatterBlock}
+        getDom={(dom) =>
+          createScatterPlot({
+            dom,
+            data: scatterData,
+            config: {
+              xField: 'date',
+              yField: 'type',
+              sizeField: 'value',
+              yPrefixName: '条件',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="分组条形图示例"
+        className={styles.block}
+        getDom={(dom) =>
+          createCustomGroupedBarPlot({
+            dom,
+            data: groupedBarData,
+            config: {
+              xField: 'country',
+              yField: 'value',
+              groupField: 'type',
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="极坐标下的柱状图"
+        className={styles.pieBlock}
+        getDom={(dom) =>
+          createRadialStackPlot({
+            dom,
+            data: radialStackData,
+            config: {
+              colorField: 'type',
+              angleField: 'value',
+            },
+          })
+        }
+      />
     </div>
   );
-}
+};
+export default Homepage;
