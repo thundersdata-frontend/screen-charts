@@ -4,7 +4,7 @@
  * @作者: 阮旭松
  * @Date: 2020-04-30 13:59:35
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 16:38:54
+ * @LastEditTime: 2020-05-06 17:49:48
  */
 import { PlotConfig, PieConfig } from '@antv/g2plot';
 import CustomBase from '../base';
@@ -80,12 +80,15 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
         '#FEB01E',
       ])
       .size(10)
-      .tooltip(angleField, (val) => {
-        const percent = val.toFixed(1);
-        return {
-          name: '占比',
-          value: percent + '%',
-        };
+      .tooltip({
+        fields: [angleField, 'color'],
+        callback: (val, color) => {
+          const percent = (color !== '空' ? val : 100 - val).toFixed(1);
+          return {
+            name: '占比',
+            value: percent + '%',
+          };
+        },
       })
       .label('percent', {
         position: 'top',

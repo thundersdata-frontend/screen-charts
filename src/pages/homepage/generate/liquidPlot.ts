@@ -9,7 +9,10 @@
 import { Liquid, LiquidConfig } from '@antv/g2plot';
 import { PlotCreateProps, basePieConfig } from './config';
 
-type LiquidPlotCreateProps = Merge<PlotCreateProps<Partial<LiquidConfig>>, { data: number }>;
+type LiquidPlotCreateProps = Merge<
+  PlotCreateProps<Partial<LiquidConfig>>,
+  { data: number }
+>;
 
 const createLiquidPlot = ({ dom, data, config }: LiquidPlotCreateProps) => {
   const liquidPlot = new Liquid(dom, {
@@ -27,7 +30,7 @@ const createLiquidPlot = ({ dom, data, config }: LiquidPlotCreateProps) => {
         fill: 'white',
         fontSize: 24,
       },
-      formatter: value => value + '%',
+      formatter: (value) => value + '%',
     },
     ...config,
   });

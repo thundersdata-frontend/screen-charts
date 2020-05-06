@@ -4,7 +4,7 @@
  * @作者: 阮旭松
  * @Date: 2020-04-27 14:53:56
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 16:40:34
+ * @LastEditTime: 2020-05-06 17:36:17
  */
 import { StackedRose, StackedRoseConfig } from '@antv/g2plot';
 import {
@@ -108,6 +108,16 @@ const createRosePlot = ({
         style: { fill: 'rgba(255, 255, 255, 0.7)' },
       },
       marker: baseMarker,
+    },
+    tooltip: {
+      customContent: {
+        callback: (_dom, cfg) => {
+          const { items } = cfg;
+          if (items && items.length > 0 && items[0].data?.type === '空') {
+            items!.splice(0, 1);
+          }
+        },
+      },
     },
     sectorStyle: {
       stroke: 'rgba(255, 255, 255, 0)',

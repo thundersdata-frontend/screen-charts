@@ -4,7 +4,7 @@
  * @作者: 阮旭松
  * @Date: 2020-04-27 14:53:56
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 16:25:53
+ * @LastEditTime: 2020-05-06 17:52:31
  */
 import { Donut, RingConfig, DataItem } from '@antv/g2plot';
 import {
