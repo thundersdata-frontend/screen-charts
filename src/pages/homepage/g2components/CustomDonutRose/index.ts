@@ -4,12 +4,17 @@
  * @作者: 阮旭松
  * @Date: 2020-04-28 16:12:38
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:23:01
+ * @LastEditTime: 2020-05-06 16:39:20
  */
 
-import { chartColorArr } from '../../generate/config';
+import {
+  chartColorArr,
+  baseMarker,
+  baseLegendColor,
+} from '../../generate/config';
 import { RoseConfig, PlotConfig } from '@antv/g2plot';
 import CustomBase from '../base';
+import { MarkerCfg } from '@antv/g2/lib/interface';
 
 export interface CustomRoseConfig extends Partial<RoseConfig>, PlotConfig {
   // 是否为半圆
@@ -31,7 +36,6 @@ class CustomDonutRose extends CustomBase<CustomRoseConfig> {
     const {
       data = [],
       radiusField = 'value',
-      categoryField = 'category',
       colorField = 'type',
       layout = 'all',
       emptyInside = true,
@@ -50,9 +54,11 @@ class CustomDonutRose extends CustomBase<CustomRoseConfig> {
       startAngle: layout === 'half' ? Math.PI : 0, // 起始角度
       endAngle: layout === 'half' ? 0 : 2 * Math.PI, // 结束角度
     });
-    this.chart.legend(categoryField, {
-      position: 'bottom',
-      flipPage: false, // 未生效
+    this.chart.legend({
+      position: 'bottom-left',
+      flipPage: false,
+      marker: baseMarker as MarkerCfg,
+      itemName: baseLegendColor,
     });
     this.chart.axis(hasAxis);
     this.chart.interaction('element-highlight');

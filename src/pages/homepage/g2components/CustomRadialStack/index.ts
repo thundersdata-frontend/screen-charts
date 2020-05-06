@@ -4,10 +4,12 @@
  * @作者: 阮旭松
  * @Date: 2020-04-30 13:59:35
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 14:32:23
+ * @LastEditTime: 2020-05-06 16:38:54
  */
 import { PlotConfig, PieConfig } from '@antv/g2plot';
 import CustomBase from '../base';
+import { baseMarker, baseLegendColor } from '../../generate/config';
+import { MarkerCfg } from '@antv/g2/lib/interface';
 
 export interface CustomRadialConfig extends Partial<PieConfig>, PlotConfig {}
 
@@ -20,9 +22,12 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
   public init() {
     const { data = [], colorField = 'type', angleField = 'value' } = this.props;
     const sum = data
-      .map(item => item[angleField])
-      .reduce((total, number) => (total as number) + (number as number), 0) as number;
-    const modifyData = data.map(item => {
+      .map((item) => item[angleField])
+      .reduce(
+        (total, number) => (total as number) + (number as number),
+        0,
+      ) as number;
+    const modifyData = data.map((item) => {
       const percent = ((item[angleField] as number) * 100) / sum;
       return {
         [colorField]: item[colorField],
@@ -32,7 +37,7 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
     });
 
     // 插入填充数据
-    data.forEach(item => {
+    data.forEach((item) => {
       const percent = ((item[angleField] as number) * 100) / sum;
       modifyData.unshift({
         [colorField]: item[colorField],
@@ -59,12 +64,8 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
     });
 
     this.chart.legend({
-      marker: {
-        symbol: 'square',
-        style: {
-          r: 5,
-        },
-      },
+      marker: baseMarker as MarkerCfg,
+      itemName: baseLegendColor,
       position: 'bottom',
     });
 
@@ -72,9 +73,14 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
       .interval()
       .adjust('stack')
       .position(`${colorField}*${angleField}`)
-      .color('color', ['rgba(255, 255, 255, 0.1)', '#00D2FF', '#38B03B', '#FEB01E'])
+      .color('color', [
+        'rgba(255, 255, 255, 0.1)',
+        '#00D2FF',
+        '#38B03B',
+        '#FEB01E',
+      ])
       .size(10)
-      .tooltip(angleField, val => {
+      .tooltip(angleField, (val) => {
         const percent = val.toFixed(1);
         return {
           name: '占比',
@@ -88,7 +94,7 @@ class CustomRadialStack extends CustomBase<CustomRadialConfig> {
         style: {
           fill: '#fff',
         },
-        content: data => {
+        content: (data) => {
           if (data.color !== '空') {
             const percent = data[angleField].toFixed(1);
             return percent + '%';

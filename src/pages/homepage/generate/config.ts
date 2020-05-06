@@ -4,7 +4,7 @@
  * @作者: 廖军
  * @Date: 2020-04-27 10:23:02
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:23:08
+ * @LastEditTime: 2020-05-06 16:41:38
  */
 
 import { TextStyle, DataItem, Legend } from '@antv/g2plot';
@@ -28,9 +28,25 @@ export const lineStyle = {
   style: { lineWidth: 1, stroke: 'rgba(9, 75, 133, 1)' },
 };
 
+// 图例颜色配置
+export const baseLegendColor = {
+  style: {
+    fill: 'rgba(255, 255, 255, 0.6)',
+  },
+};
+
+// 基础方形图例形状
+export const baseMarker = {
+  symbol: 'square',
+  style: {
+    r: 5,
+  },
+};
+
 // 图例配置
 export const baseLegend: Legend = {
   position: 'bottom-center',
+  text: baseLegendColor,
 };
 
 // 颜色配置

@@ -4,10 +4,15 @@
  * @作者: 阮旭松
  * @Date: 2020-04-27 14:53:56
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:08:17
+ * @LastEditTime: 2020-05-06 16:40:34
  */
 import { StackedRose, StackedRoseConfig } from '@antv/g2plot';
-import { PlotCreateProps, basePieConfig } from './config';
+import {
+  PlotCreateProps,
+  basePieConfig,
+  baseLegend,
+  baseMarker,
+} from './config';
 
 interface CustomStackedRoseConfig extends StackedRoseConfig {
   // 是否螺旋上升且空心
@@ -92,7 +97,7 @@ const createRosePlot = ({
       content: (text) => text.value,
     },
     legend: {
-      position: 'bottom-center',
+      ...baseLegend,
       text: {
         formatter: (txt) => {
           if (txt !== '空') {
@@ -100,7 +105,9 @@ const createRosePlot = ({
           }
           return '';
         },
+        style: { fill: 'rgba(255, 255, 255, 0.7)' },
       },
+      marker: baseMarker,
     },
     sectorStyle: {
       stroke: 'rgba(255, 255, 255, 0)',

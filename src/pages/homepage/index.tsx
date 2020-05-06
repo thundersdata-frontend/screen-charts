@@ -164,6 +164,8 @@ const Homepage = () => {
             data: pieData,
             config: {
               layout: 'half',
+              colorField: 'type',
+              radiusField: 'value',
             },
           })
         }

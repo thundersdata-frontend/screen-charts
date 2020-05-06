@@ -4,7 +4,7 @@
  * @作者: 廖军
  * @Date: 2020-04-30 10:28:41
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:22:33
+ * @LastEditTime: 2020-05-06 16:06:29
  */
 import { Chart } from '@antv/g2';
 
@@ -24,9 +24,6 @@ export default class CustomBase<T> {
     this.chart = new Chart({
       container: this.containerDOM,
       autoFit: true,
-    });
-    this.chart.tooltip({
-      showMarkers: false,
     });
   }
 }

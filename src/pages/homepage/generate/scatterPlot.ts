@@ -4,10 +4,10 @@
  * @作者: 阮旭松
  * @Date: 2020-04-27 14:53:56
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:06:14
+ * @LastEditTime: 2020-05-06 16:34:54
  */
 import { Bubble, BubbleConfig } from '@antv/g2plot';
-import { PlotCreateProps, basePieConfig } from './config';
+import { PlotCreateProps, basePieConfig, baseMarker } from './config';
 
 interface CustomBubbleConfig extends Partial<BubbleConfig> {
   yPrefixName?: string;
@@ -83,6 +83,9 @@ const createScatterPlot = ({
             : 0;
         return { name: sizeField, value };
       },
+    },
+    legend: {
+      marker: baseMarker,
     },
     xAxis: {
       visible: true,

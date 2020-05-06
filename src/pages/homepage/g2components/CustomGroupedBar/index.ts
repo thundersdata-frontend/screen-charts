@@ -4,7 +4,7 @@
  * @作者: 廖军
  * @Date: 2020-04-30 11:07:21
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:21:20
+ * @LastEditTime: 2020-05-06 16:06:50
  */
 import { PlotConfig } from '@antv/g2plot/lib/base/plot';
 import { ViewConfig } from '@antv/g2plot';
@@ -35,9 +35,6 @@ class CustomGroupedBar extends CustomBase<CustomGroupedBarConfig> {
     } = this.props;
     this.chart.data(data);
     this.chart.scale(xField, { nice: true });
-    this.chart.tooltip({
-      showMarkers: false,
-    });
     this.chart.legend({
       position: 'bottom',
     });

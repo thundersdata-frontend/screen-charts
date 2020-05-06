@@ -4,10 +4,15 @@
  * @作者: 阮旭松
  * @Date: 2020-04-27 14:53:56
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-06 15:52:56
+ * @LastEditTime: 2020-05-06 16:25:53
  */
 import { Donut, RingConfig, DataItem } from '@antv/g2plot';
-import { PlotCreateProps, chartColorArr, basePieConfig } from './config';
+import {
+  PlotCreateProps,
+  chartColorArr,
+  basePieConfig,
+  baseLegendColor,
+} from './config';
 import { DonutViewConfig } from '@antv/g2plot/lib/plots/donut/layer';
 
 interface CustomRingConfig extends Partial<RingConfig> {
@@ -104,6 +109,7 @@ const createDonutPlot = ({ dom, data, config }: RingPlotCreateProps) => {
       position: 'bottom-center',
       flipPage: false,
       text: {
+        ...baseLegendColor,
         formatter: (txt) => {
           if (txt !== '空') {
             return txt;
