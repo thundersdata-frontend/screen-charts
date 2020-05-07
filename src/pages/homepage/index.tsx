@@ -1,6 +1,6 @@
 import React from 'react';
-import ChartDom from './components/ChartDom';
 import {
+  ChartDom,
   createLinePlot,
   createColumnPlot,
   createGroupColumnPlot,
@@ -18,7 +18,7 @@ import {
   createCustomRangeBarPlot,
   createCustomGroupedBarPlot,
   createRadialStackPlot,
-} from './generate';
+} from '@td-design/charts';
 import styles from './index.module.less';
 import {
   data1,
