@@ -6,7 +6,7 @@ import { CustomWindow } from '@/interfaces/common';
  * @返回值: 无
  */
 export const themeInit = () => {
-  const theme = ((global as unknown) as CustomWindow).theme;
+  const { theme } = (global as unknown) as CustomWindow;
   let styleLink = document.getElementById('theme-style') as HTMLLinkElement;
   const body = document.getElementsByTagName('body')[0];
   if (styleLink) {
