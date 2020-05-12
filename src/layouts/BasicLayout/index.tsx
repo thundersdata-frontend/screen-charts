@@ -11,9 +11,11 @@ import defaultSettings from './defaultSettings';
 import Logo from './components/Logo';
 import { ConfigProvider, Empty, Breadcrumb } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
+import { CustomWindow } from '@/interfaces/common';
+import { themeInit } from '@/theme';
 
 export default function BasicLayout(props: IRouteComponentProps) {
-  const [collapsed, handleMenuCollapse] = useState<boolean>(false);
+  const [collapsed, setMenuCollapse] = useState<boolean>(false);
   const [settings] = useState<Partial<Settings>>(defaultSettings);
   const { initialState } = useModel('@@initialState');
 
@@ -40,6 +42,15 @@ export default function BasicLayout(props: IRouteComponentProps) {
       }));
     }
   }
+
+  const handleMenuCollapse = (collapsed: boolean) => {
+    ((global as unknown) as CustomWindow).theme =
+      ((global as unknown) as CustomWindow).theme === 'light'
+        ? 'dark'
+        : 'light';
+    themeInit();
+    setMenuCollapse(collapsed);
+  };
 
   return (
     <ConfigProvider

@@ -17,6 +17,6 @@ module.exports = {
     'no-undef': 0,
     'no-console': 0,
     'dot-notation': 0,
-    'prefer-template': 0
-  }
+    'prefer-template': 0,
+  },
 };

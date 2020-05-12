@@ -3,14 +3,15 @@
  * @公司: thundersdata
  * @作者: 陈杰
  * @Date: 2019-10-25 13:43:18
- * @LastEditors: 陈杰
- * @LastEditTime: 2020-04-27 13:51:17
+ * @LastEditors: 阮旭松
+ * @LastEditTime: 2020-05-11 15:17:31
  */
 import isEmpty from 'lodash/isEmpty';
 import { request } from 'umi';
 import { MenuDataItem } from '@ant-design/pro-layout';
 import arrayUtils from '@/utils/array';
 import { PrivilegeResource } from './interfaces/common';
+import { themeInit } from './theme';
 
 interface Route {
   path: string;
@@ -32,6 +33,8 @@ const privileges: string[] = [];
 export async function render(oldRender: Function) {
   const result = await request('/resource');
   const { code, success, data = [] } = result;
+  // 初始化主题色
+  themeInit();
   if (code === 20000 && success) {
     const routes: PrivilegeResource[] = arrayUtils.deepOrder({
       data,
@@ -79,12 +82,12 @@ export function patchRoutes(oldRoutes: { routes: Route[] }) {
 
 /** 初始化数据 */
 export async function getInitialState() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     resolve({
       menus,
       privileges,
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -126,7 +129,7 @@ function convertResourceToRoute(list: PrivilegeResource[]): Route[] {
     return {
       path: item.apiUrl,
       component: require(`./pages${item.apiUrl}`).default,
-      title: item.description
+      title: item.description,
     };
   });
 }
