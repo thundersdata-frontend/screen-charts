@@ -1,0 +1,28 @@
+{
+  "theme": [
+    {
+      "theme": "dark",
+      "fileName": "dark.css",
+      "modifyVars": {
+        "@blue-screen-bg": "#090b2c",
+        "@guide-name-color": "#a5a5a5",
+        "@guide-value-color": "#fff"
+      }
+    },
+    {
+      "theme": "light",
+      "fileName": "light.css",
+      "modifyVars": {
+        "@blue-screen-bg": "#fff",
+        "@guide-name-color": "#181818",
+        "@guide-value-color": "#000"
+      }
+    }
+  ],
+  "min": true,
+  "isModule": true,
+  "ignoreAntd": false,
+  "ignoreProLayout": false,
+  "cache": true,
+  "extraLibraries": ["@td-design/charts"]
+}

@@ -3,8 +3,8 @@
  * @公司: thundersdata
  * @作者: 陈杰
  * @Date: 2019-10-25 13:43:18
- * @LastEditors: 陈杰
- * @LastEditTime: 2020-04-27 13:51:17
+ * @LastEditors: 阮旭松
+ * @LastEditTime: 2020-05-14 14:44:34
  */
 import isEmpty from 'lodash/isEmpty';
 import { request } from 'umi';
@@ -79,12 +79,12 @@ export function patchRoutes(oldRoutes: { routes: Route[] }) {
 
 /** 初始化数据 */
 export async function getInitialState() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     resolve({
       menus,
       privileges,
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -126,7 +126,7 @@ function convertResourceToRoute(list: PrivilegeResource[]): Route[] {
     return {
       path: item.apiUrl,
       component: require(`./pages${item.apiUrl}`).default,
-      title: item.description
+      title: item.description,
     };
   });
 }

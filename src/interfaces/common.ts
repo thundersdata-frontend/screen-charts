@@ -3,8 +3,8 @@
  * @公司: thundersdata
  * @作者: 陈杰
  * @Date: 2019-10-23 21:12:06
- * @LastEditors: 黄姗姗
- * @LastEditTime: 2019-12-12 15:55:27
+ * @LastEditors: 阮旭松
+ * @LastEditTime: 2020-05-11 15:13:54
  */
 
 import { MenuDataItem } from '@ant-design/pro-layout';
@@ -23,6 +23,7 @@ export interface CustomWindow extends Window {
     password_max: number;
     company: number;
   };
+  theme: string;
 }
 
 export interface CustomLocation extends Location {

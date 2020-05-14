@@ -13,7 +13,7 @@ import { ConfigProvider, Empty, Breadcrumb } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 
 export default function BasicLayout(props: IRouteComponentProps) {
-  const [collapsed, handleMenuCollapse] = useState<boolean>(false);
+  const [collapsed, setMenuCollapse] = useState<boolean>(false);
   const [settings] = useState<Partial<Settings>>(defaultSettings);
   const { initialState } = useModel('@@initialState');
 
@@ -54,7 +54,7 @@ export default function BasicLayout(props: IRouteComponentProps) {
       <ProLayout
         logo={<Logo />}
         collapsed={collapsed}
-        onCollapse={handleMenuCollapse}
+        onCollapse={setMenuCollapse}
         menuHeaderRender={(logoDom, titleDom) => (
           <Link to="/">
             {logoDom}
