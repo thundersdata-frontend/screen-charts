@@ -86,4 +86,4 @@ theme 下的 modifyVars 下默认可配置 antd 的自带样式变量如：@prim
 @blue-screen-bg: #fff;
 ```
 
-在项目的样式文件`xxx.module.less`中使用该颜色变量，并从 default.less 文件中引入。`antd-pro-merge-less`会自动将该组件库中处理过的样式整合入`/theme/xxx.css`下，缓存在 node_modules/.plugin-theme 下 配合 theme/index.ts 中的主题切换方法就可以实现自定义主题色配置了。
+在项目的样式文件`xxx.module.less`中使用该颜色变量，并从 default.less 文件中引入。`antd-pro-merge-less`会自动将该组件库中处理过的样式整合入`/theme/xxx.css`下，缓存在 node_modules/.plugin-theme 下就可以实现自定义主题色配置了。
