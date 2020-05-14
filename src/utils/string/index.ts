@@ -28,7 +28,10 @@ export default {
    * @returns {string} 最后一个裁剪字符后面的字符串
    */
   getLastSubstring(sourceStr = '', splitStr = '') {
-    return sourceStr.substring(sourceStr.lastIndexOf(splitStr) + splitStr.length, sourceStr.length);
+    return sourceStr.substring(
+      sourceStr.lastIndexOf(splitStr) + splitStr.length,
+      sourceStr.length,
+    );
   },
 
   /**
@@ -54,5 +57,31 @@ export default {
     input.select();
     document.execCommand('copy');
     document.body.removeChild(input);
+  },
+
+  /**
+   * @功能描述: 获得url中的传参
+   * @参数: name(指定项的key值)
+   * @返回值: 若有name，则返回指定项的value，若没有name则返回一个query的json
+   */
+  getUrlQuery(name?: string) {
+    let after = window.location.search || window.location.hash;
+    after = after ? after.split('?')[1] : '';
+    const query = {};
+    const strs = after ? after.split('&') : [];
+    for (let i = 0; i < strs.length; i += 1) {
+      const keyValueMaps = strs[i] ? strs[i].split('=') : [];
+      if (keyValueMaps.length === 2) {
+        query[keyValueMaps[0]] = decodeURIComponent(keyValueMaps[1]);
+      } else if (keyValueMaps[0]) {
+        query[keyValueMaps[0]] = null;
+      }
+    }
+
+    if (name && typeof name !== 'object') {
+      return query[name];
+    }
+
+    return query;
   },
 };

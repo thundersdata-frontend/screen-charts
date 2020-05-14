@@ -4,20 +4,21 @@
       "theme": "dark",
       "fileName": "dark.css",
       "modifyVars": {
-        "@primary-color": "#123456"
+        "@blue-screen-bg": "#090b2c"
       }
     },
     {
       "theme": "light",
       "fileName": "light.css",
       "modifyVars": {
-        "@primary-color": "grey"
+        "@blue-screen-bg": "#fff"
       }
     }
   ],
   "min": true,
   "isModule": true,
-  "ignoreAntd": true,
+  "ignoreAntd": false,
   "ignoreProLayout": false,
-  "cache": true
+  "cache": true,
+  "extraLibraries": ["@td-design/charts"]
 }

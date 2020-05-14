@@ -1,7 +1,9 @@
+@import '../../styles/default.less';
+
 .homepage {
   width: 100%;
   height: max-content;
-  background-color: #090b2c;
+  background-color: @blue-screen-bg;
 }
 
 .chart {
@@ -40,10 +42,6 @@
 :global {
   .ant-layout.ant-layout-has-sider > .ant-layout,
   .ant-layout.ant-layout-has-sider > .ant-layout-content {
-    background: var(--bg-color);
-  }
-
-  .antd-pro-pages-homepage-index\.module-homepage {
-    background: var(--bg-color);
+    background: @blue-screen-bg;
   }
 }
