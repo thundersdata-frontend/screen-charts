@@ -11,12 +11,7 @@ module.exports = {
           }
           return `@td-design/charts/es/components/${name}`;
         },
-        style: (name) => {
-          if (name.indexOf('create') > -1) {
-            return false;
-          }
-          return true;
-        },
+        style: true,
       },
     ],
   ],
