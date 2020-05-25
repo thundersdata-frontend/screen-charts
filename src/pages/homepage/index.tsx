@@ -270,7 +270,7 @@ const Homepage = () => {
               xField: 'date',
               yField: 'type',
               sizeField: 'value',
-              yPrefixName: '条件',
+              yNameFormatter: (name: number) => `条件${name}`,
             },
           })
         }

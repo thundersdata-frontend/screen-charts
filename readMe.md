@@ -20,12 +20,7 @@ plugins: [
           }
           return `@td-design/charts/es/components/${name}`;
         },
-        style: (name) => {
-          if (name.indexOf('create') > -1) {
-            return false;
-          }
-          return true;
-        },
+        style: true,
       },
     ],
   ],
@@ -95,14 +90,68 @@ theme 下的 modifyVars 下默认可配置 antd 的自带样式变量如：@prim
 global.ts 中配置初始 theme ，这里配置了 `dark` 为初始主题：
 
 ```ts
-((global as unknown) as CustomWindow).theme = 'dark';
+((global as unknown) as CustomWindow).chartConfig = {
+  theme: 'dark',
+};
 ```
 
 在 app.ts 的 `render` 方法中调用 themeInit 方法(从 theme/index.ts 中引入)
 
 #### 切换主题
 
-调用 themeInit 方法(从 theme/index.ts 中引入)并传入主题名称即可。
+1.如果需要切换主题的功能，则需要配置`chartConfig`中的`themeConfig`属性，在`themeConfig`下需要配置对应主题的属性。
+
+比如：需要`dark`和`light`的主题切换，则可以配置`chartConfig`如下：
+
+```ts
+((global as unknown) as CustomWindow).chartConfig = {
+  theme: 'dark',
+  themeConfig: {
+    // 暗黑主题
+    dark: {
+      // 图例文字颜色
+      legendColor: 'rgba(255, 255, 255, 0.6)',
+      // 图表文字颜色
+      fontColor: 'rgba(255, 255, 255, 0.4)',
+      // 环形图
+      donutConfig: {
+        // 环形边缘颜色(间隔颜色)
+        stroke: '#122749',
+      },
+      // 注水图
+      liquidConfig: {
+        statistic: {
+          // 中间指标字体颜色
+          fill: '#fff',
+        },
+      },
+    },
+    // 白色主题
+    light: {
+      // 图例文字颜色
+      legendColor: '#333',
+      // 图表文字颜色
+      fontColor: '#333',
+      // 环形图
+      donutConfig: {
+        // 环形边缘颜色(间隔颜色)
+        stroke: '#fff',
+      },
+      // 注水图
+      liquidConfig: {
+        statistic: {
+          // 中间指标字体颜色
+          fill: '#333',
+        },
+      },
+    },
+  },
+};
+```
+
+目前主题库有`dark`和`light`，上面的属性(如`legendColor`)是全部目前图表库暴露的可配置属性，都是可选可不选的，如果不传会用默认的主题设置。如果是自定义的其他主题，图表库则会默认使用`dark`主题颜色作为模板。
+
+2.调用 themeInit 方法(从 theme/index.ts 中引入)并传入主题名称即可。
 
 - 注：在 global.less 中的样式不会被整合，所以修改不会生效。
 

@@ -29,12 +29,13 @@ const getFormatedUrl = (paramName: string, paramValue: string) => {
  * @返回值: 无
  */
 export const themeInit = (customTheme?: string) => {
-  let { theme } = (global as unknown) as CustomWindow;
+  const { chartConfig } = (global as unknown) as CustomWindow;
+  let { theme } = chartConfig;
   let styleLink = document.getElementById('theme-style') as HTMLLinkElement;
   const body = document.getElementsByTagName('body')[0];
   const newTheme = customTheme || string.getUrlQuery('theme');
   if (newTheme) {
-    ((global as unknown) as CustomWindow).theme = newTheme;
+    ((global as unknown) as CustomWindow).chartConfig.theme = newTheme;
     // 如果地址存在theme参数，使用该theme
     theme = newTheme;
     if (customTheme) {

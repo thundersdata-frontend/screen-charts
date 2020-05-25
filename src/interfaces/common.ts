@@ -4,7 +4,7 @@
  * @作者: 陈杰
  * @Date: 2019-10-23 21:12:06
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-11 15:13:54
+ * @LastEditTime: 2020-05-24 20:24:15
  */
 
 import { MenuDataItem } from '@ant-design/pro-layout';
@@ -23,7 +23,15 @@ export interface CustomWindow extends Window {
     password_max: number;
     company: number;
   };
-  theme: string;
+  chartConfig: {
+    theme: string;
+    themeConfig?: {
+      // 对应主题色
+      [name: string]: {
+        [name: string]: string;
+      };
+    };
+  };
 }
 
 export interface CustomLocation extends Location {

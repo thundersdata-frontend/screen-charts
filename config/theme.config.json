@@ -6,7 +6,8 @@
       "modifyVars": {
         "@blue-screen-bg": "#090b2c",
         "@guide-name-color": "#a5a5a5",
-        "@guide-value-color": "#fff"
+        "@guide-value-color": "#fff",
+        "@blue-card-bg": "#122749"
       }
     },
     {
@@ -15,7 +16,8 @@
       "modifyVars": {
         "@blue-screen-bg": "#fff",
         "@guide-name-color": "#181818",
-        "@guide-value-color": "#000"
+        "@guide-value-color": "#000",
+        "@blue-card-bg": "#fff"
       }
     }
   ],
@@ -23,6 +25,6 @@
   "isModule": true,
   "ignoreAntd": false,
   "ignoreProLayout": false,
-  "cache": true,
+  "cache": false,
   "extraLibraries": ["@td-design/charts"]
 }
