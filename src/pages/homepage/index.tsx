@@ -18,6 +18,9 @@ import {
   createCustomRangeBarPlot,
   createCustomGroupedBarPlot,
   createRadialStackPlot,
+  createDualLinePlot,
+  createGroupedColumnLinePlot,
+  createColumnLinePlot,
 } from '@td-design/charts';
 import styles from './index.module.less';
 import {
@@ -29,7 +32,10 @@ import {
   groupedBarData,
   radialStackData,
   scatterData,
+  comboData,
+  groupedComboData,
 } from './data';
+import { formatChartData } from '@/utils/array';
 
 const Homepage = () => {
   return (
@@ -84,7 +90,7 @@ const Homepage = () => {
             config: {
               xField: 'date',
               yField: 'value',
-              stackField: 'type',
+              seriesField: 'type',
             },
           })
         }
@@ -151,7 +157,7 @@ const Homepage = () => {
         getDom={(dom) =>
           createLiquidPlot({
             dom,
-            data: 50,
+            data: 0.5,
           })
         }
       />
@@ -178,9 +184,9 @@ const Homepage = () => {
             dom,
             data: roseData,
             config: {
-              radiusField: 'value',
-              categoryField: 'category',
-              stackField: 'type',
+              xField: 'category',
+              yField: 'value',
+              seriesField: 'type',
               isSpiral: true,
             },
           })
@@ -194,9 +200,9 @@ const Homepage = () => {
             dom,
             data: roseData,
             config: {
-              radiusField: 'value',
-              categoryField: 'category',
-              stackField: 'type',
+              yField: 'value',
+              xField: 'category',
+              seriesField: 'type',
             },
           })
         }
@@ -223,8 +229,8 @@ const Homepage = () => {
             dom,
             data: radarData,
             config: {
-              angleField: 'item',
-              radiusField: 'score',
+              xField: 'item',
+              yField: 'score',
               seriesField: 'user',
             },
           })
@@ -240,7 +246,7 @@ const Homepage = () => {
             config: {
               xField: 'date',
               yField: 'value',
-              stackField: 'type',
+              seriesField: 'type',
             },
           })
         }
@@ -291,15 +297,114 @@ const Homepage = () => {
         }
       />
       <ChartDom
-        title="极坐标下的柱状图"
+        title="玉珏图"
         className={styles.pieBlock}
         getDom={(dom) =>
           createRadialStackPlot({
             dom,
             data: radialStackData,
             config: {
-              colorField: 'type',
-              angleField: 'value',
+              padding: [0, 0, 70, 0],
+              xField: 'type',
+              yField: 'value',
+              maxAngle: 350,
+              radius: 0.8,
+              innerRadius: 0.2,
+              tooltip: {
+                formatter: (datum: Record<string, any>) => {
+                  return { name: 'star数', value: datum.value };
+                },
+              },
+              barBackground: {},
+              barStyle: { lineCap: 'round' },
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="双线图"
+        className={styles.block}
+        getDom={(dom: HTMLElement) =>
+          createDualLinePlot({
+            dom,
+            data: formatChartData({
+              dataSource: comboData,
+              mapping: {
+                yAxisLeftLabelName: '价格',
+                yAxisRightLabelName: '个数',
+              },
+            }),
+            config: {
+              xField: 'time',
+              yField: ['价格', '个数'],
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="柱状图+折线图"
+        className={styles.block}
+        getDom={(dom: HTMLElement) =>
+          createColumnLinePlot({
+            dom,
+            data: formatChartData({
+              dataSource: comboData,
+              mapping: {
+                yAxisLeftLabelName: '价格',
+                yAxisRightLabelName: '个数',
+              },
+            }),
+            config: {
+              xField: 'time',
+              yField: ['价格', '个数'],
+              geometryOptions: [
+                {
+                  geometry: 'column',
+                },
+                {
+                  geometry: 'line',
+                  lineStyle: {
+                    lineWidth: 2,
+                  },
+                },
+              ],
+            },
+          })
+        }
+      />
+      <ChartDom
+        title="分组柱状图+折线图"
+        className={styles.block}
+        getDom={(dom: HTMLElement) =>
+          createGroupedColumnLinePlot({
+            dom,
+            data: formatChartData({
+              dataSource: groupedComboData,
+              mapping: {
+                yAxisLeftLabelName: '价格',
+                yAxisRightLabelName: '个数',
+                yAxisLeftName: 'uvValue',
+                yAxisRightName: 'billValue',
+                sortTypeLegendNames: ['uv', 'bill'],
+                sortTypeValueNames: ['uvValue', 'billValue'],
+              },
+            }),
+            config: {
+              xField: 'time',
+              yField: ['value', '个数'],
+              geometryOptions: [
+                {
+                  geometry: 'column',
+                  isGroup: true,
+                  seriesField: 'type',
+                },
+                {
+                  geometry: 'line',
+                  lineStyle: {
+                    lineWidth: 2,
+                  },
+                },
+              ],
             },
           })
         }

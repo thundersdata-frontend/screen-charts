@@ -4,7 +4,7 @@
  * @作者: 廖军
  * @Date: 2020-04-27 13:58:02
  * @LastEditors: 阮旭松
- * @LastEditTime: 2020-05-11 18:18:35
+ * @LastEditTime: 2021-02-04 15:40:44
  */
 
 export const data1 = [
@@ -511,4 +511,22 @@ export const radialStackData = [
   { type: '图例一', value: 25635 },
   { type: '图例二', value: 30352 },
   { type: '图例三', value: 38253 },
+];
+
+// 双轴混合图表数据
+export const comboData = [
+  { time: '2019-03', value: 350, count: 800 },
+  { time: '2019-04', value: 900, count: 600 },
+  { time: '2019-05', value: 300, count: 400 },
+  { time: '2019-06', value: 450, count: 300 },
+  { time: '2019-07', value: 470, count: 200 },
+];
+
+// 分组双轴混合图表数据
+export const groupedComboData = [
+  { time: '2019-03', uvValue: 350, count: 800, billValue: 500 },
+  { time: '2019-04', uvValue: 900, count: 600, billValue: 400 },
+  { time: '2019-05', uvValue: 300, count: 400, billValue: 300 },
+  { time: '2019-06', uvValue: 450, count: 300, billValue: 430 },
+  { time: '2019-07', uvValue: 470, count: 200, billValue: 500 },
 ];
